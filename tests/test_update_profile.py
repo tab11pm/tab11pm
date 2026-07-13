@@ -17,6 +17,7 @@ class ProfileGeneratorTests(unittest.TestCase):
     def test_readme_has_approved_clickable_links_and_sections(self):
         readme = (Path(__file__).resolve().parents[1] / "README.md").read_text(encoding="utf-8")
         self.assertIn('href="https://github.com/tab11pm"', readme)
+        self.assertIn('href="https://t.me/tab_dev"', readme)
         self.assertIn('href="mailto:tabrez.frontend@gmail.com"', readme)
         self.assertIn("## About", readme)
         self.assertIn("## Tech Stack", readme)
