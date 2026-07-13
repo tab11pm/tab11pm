@@ -6,6 +6,22 @@ from scripts.update_profile import TEMPLATE_PATHS, count_source_lines, render_sv
 
 
 class ProfileGeneratorTests(unittest.TestCase):
+    def test_visible_identity_uses_tabek_without_changing_github_handle(self):
+        root = Path(__file__).resolve().parents[1]
+        for name in ("dark.template.svg", "light.template.svg"):
+            svg = (root / name).read_text(encoding="utf-8")
+            self.assertIn("I'm Tabek", svg)
+            self.assertIn(">Tabek</text>", svg)
+            self.assertIn("github.com/tab11pm", svg)
+
+    def test_readme_has_approved_clickable_links_and_sections(self):
+        readme = (Path(__file__).resolve().parents[1] / "README.md").read_text(encoding="utf-8")
+        self.assertIn('href="https://github.com/tab11pm"', readme)
+        self.assertIn('href="mailto:tabrez.frontend@gmail.com"', readme)
+        self.assertIn("## About", readme)
+        self.assertIn("## Tech Stack", readme)
+        self.assertIn("Tabek", readme)
+
     def test_both_svg_templates_contain_each_stat_token_once(self):
         for template_path in TEMPLATE_PATHS:
             template = template_path.read_text(encoding="utf-8")
