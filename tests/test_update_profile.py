@@ -21,6 +21,14 @@ class ProfileGeneratorTests(unittest.TestCase):
             self.assertNotIn("BUILDING IN PUBLIC", svg)
             self.assertNotIn('transform="translate(0 410)"', svg)
 
+    def test_svg_templates_use_balanced_vertical_spacing(self):
+        root = Path(__file__).resolve().parents[1]
+        for name in ("dark.template.svg", "light.template.svg"):
+            svg = (root / name).read_text(encoding="utf-8")
+            self.assertIn('transform="translate(0 129)"', svg)
+            self.assertIn('transform="translate(0 310)"', svg)
+            self.assertIn('transform="translate(0 373)"', svg)
+
     def test_readme_has_approved_clickable_links_and_sections(self):
         readme = (Path(__file__).resolve().parents[1] / "README.md").read_text(encoding="utf-8")
         self.assertIn('href="https://github.com/tab11pm"', readme)
